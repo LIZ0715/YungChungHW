@@ -5,6 +5,10 @@ VisualStudioVersion = 17.11.35431.28
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rehouse", "Rehouse\Rehouse.csproj", "{D9113BAD-7E98-43A9-8CF9-1ED2CC474741}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "Repository\Repository.csproj", "{D3B0A8C5-A621-4851-BF5C-BE2FC2ADD002}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{39A08577-21C5-4276-AC12-081079235756}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{D9113BAD-7E98-43A9-8CF9-1ED2CC474741}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9113BAD-7E98-43A9-8CF9-1ED2CC474741}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D9113BAD-7E98-43A9-8CF9-1ED2CC474741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3B0A8C5-A621-4851-BF5C-BE2FC2ADD002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3B0A8C5-A621-4851-BF5C-BE2FC2ADD002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3B0A8C5-A621-4851-BF5C-BE2FC2ADD002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3B0A8C5-A621-4851-BF5C-BE2FC2ADD002}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39A08577-21C5-4276-AC12-081079235756}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39A08577-21C5-4276-AC12-081079235756}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39A08577-21C5-4276-AC12-081079235756}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39A08577-21C5-4276-AC12-081079235756}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
