@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\API\" />
     <Folder Include="Interface\" />
     <Folder Include="Extension\" />
     <Folder Include="Dto\" />

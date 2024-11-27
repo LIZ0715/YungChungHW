@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Rehouse.Models;
 using System.Diagnostics;
 
-namespace Rehouse.Controllers
+namespace Yungching.Rehouse.Web.Controllers.MVC
 {
     public class HomeController : Controller
     {
