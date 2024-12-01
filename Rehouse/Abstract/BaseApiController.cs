@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Biomedica.NGS.Infrastructure.Filters;
+using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace Yungching.Rehouse.Web.Abstract
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
+    [ServiceFilter(typeof(ApiLoggingFilterAttribute))]
     public abstract class BaseApiController:ControllerBase
     {
         protected IActionResult HandleResponse<T>(T data, string message = null)
