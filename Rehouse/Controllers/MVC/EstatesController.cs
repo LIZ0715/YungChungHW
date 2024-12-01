@@ -4,11 +4,11 @@ using System.Diagnostics;
 
 namespace Yungching.Rehouse.Web.Controllers.MVC
 {
-    public class HomeController : Controller
+    public class EstatesController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<EstatesController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public EstatesController(ILogger<EstatesController> logger)
         {
             _logger = logger;
         }
@@ -18,7 +18,7 @@ namespace Yungching.Rehouse.Web.Controllers.MVC
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Stop()
         {
             return View();
         }

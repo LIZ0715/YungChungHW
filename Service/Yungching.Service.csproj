@@ -11,4 +11,9 @@
     <Folder Include="Dto\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Repository\Yungching.Repository.csproj" />
+    <ProjectReference Include="..\Yungching.Common\Yungching.Common.csproj" />
+  </ItemGroup>
+
 </Project>

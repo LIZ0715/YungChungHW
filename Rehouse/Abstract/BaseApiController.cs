@@ -5,7 +5,7 @@ using System.Net;
 namespace Yungching.Rehouse.Web.Abstract
 {
     [ApiController]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ServiceFilter(typeof(ApiLoggingFilterAttribute))]
     public abstract class BaseApiController:ControllerBase
     {

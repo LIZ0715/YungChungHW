@@ -1,7 +1,13 @@
 using Biomedica.NGS.Infrastructure.Filters;
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
+using Repository;
 using Yungching.Common;
+using Yungching.Repository;
+using Yungching.Repository.Interface;
+using Yungching.Repository.Models;
+using Yungching.Service;
 
 // 明確載入 NLog 設定
 var nlogConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nlog.config");
@@ -17,8 +23,20 @@ try
     builder.Host.UseNLog();
 
     // Add services to the container.
-    builder.Services.AddControllersWithViews();
+    builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
     builder.Services.AddScoped<ApiLoggingFilterAttribute>();
+    builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+    builder.Services.AddScoped<EstateService>();
+    builder.Services.AddScoped<EstateRepository>();
+
+
+    //1.取得組態中資料庫連線設定
+    string? connectionString = builder.Configuration.GetConnectionString("RehouseContext");
+
+    //2.註冊EF Core的DbContext
+    builder.Services.AddDbContext<RehouseContext>(options => options.UseSqlServer(connectionString));
+
+
     var app = builder.Build();
     // Configure the HTTP request pipeline.
     if (!app.Environment.IsDevelopment())
@@ -34,7 +52,7 @@ try
     app.UseAuthorization();
     app.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}");
+        pattern: "{controller=Estates}/{action=Index}/{id?}");
 
     logger.Info("應用程式啟動完成");
     app.Run();
