@@ -45,10 +45,24 @@
             </tbody>
         </table>
     </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center mt-4">
+            <li class="page-item" :class="{ disabled: currentPage === 1 }">
+                <a class="page-link" href="#" @@click.prevent="changePage(currentPage - 1)">Previous</a>
+            </li>
+            <li class="page-item" v-for="page in totalPages" :key="page" :class="{ active: page === currentPage }">
+                <a class="page-link" href="#" @@click.prevent="changePage(page)">{{page}}</a>
+            </li>
+            <li class="page-item" :class="{ disabled: currentPage === totalPages }">
+                <a class="page-link" href="#" @@click.prevent="changePage(currentPage + 1)">Next</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 
-<!-- Modal -->
+<!--Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -91,7 +105,7 @@
 
 
 
-<!-- Modal -->
+<!-- Add Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
