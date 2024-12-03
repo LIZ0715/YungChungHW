@@ -49,11 +49,12 @@ namespace Yungching.Repository
         }
 
         //刪除房地產
-        public async Task DeleteEstates(int id)
+        public async Task ChangeDataStatus(int id)
         {
             Estate res = await _estateRepository.FirstOrDefaultAsync(x => x.Id == id);
             if (res == null) { throw new Exception($"Estate with id {id} not found"); }
-            res.Status = false;
+
+            res.Status = !res.Status; // 如果res.Status為true=>false 反之
             res.UpdateAt = DateTime.UtcNow;
             await _estateRepository.UpdateAsync(res);
         }
@@ -61,7 +62,7 @@ namespace Yungching.Repository
         //查看房地產(自己)
         public async Task<List<GetEstate>> GetUserEstates(int userId)
         {
-            List<Estate> res = await _estateRepository.ListAsync(x => x.MemberShipId == userId && x.Status);
+            List<Estate> res = await _estateRepository.ListAsync(x => x.MemberShipId == userId);
             return res.Select(estate => new GetEstate
             {
                 Id=estate.Id,
@@ -69,7 +70,8 @@ namespace Yungching.Repository
                 Address = estate.Address,
                 Price = estate.Price,
                 Type = ConvertType(estate.Type),
-                Range=estate.Range
+                Range=estate.Range,
+                Status=estate.Status
             }).ToList();
         }
 

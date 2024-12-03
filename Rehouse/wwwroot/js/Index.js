@@ -9,7 +9,8 @@
                 address: '',
                 price: 0,
                 type: 1,
-                range:0
+                range: 0,
+                status:true
             },
             rows: {}
         }
@@ -56,16 +57,13 @@
                 return value !== null;
             });
         },
-        async DeleteData(index) {
+        async ChangeDataStatus(index) {
             const data = this.rows[index];
             const id = data.id;
             try {
                 const response = await axios.delete(`api/estates/${id}`);
-                console.log(response);
-
-                //從this.rows array裡面移除該index
-                this.rows.splice(index, 1);
-                alert('刪除成功');
+                await this.GetUserEstate();
+                alert('狀態修改成功');
             }
             catch (error) {
                 console.error(error);

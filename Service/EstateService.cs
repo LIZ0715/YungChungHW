@@ -31,10 +31,8 @@ namespace Yungching.Service
         //delete estate
         public async Task DeleteEstate(int id)
         {
-            await _estateRepository.DeleteEstates(id);
+            await _estateRepository.ChangeDataStatus(id);
         }
-
-
 
 
         //get my estate

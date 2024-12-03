@@ -13,12 +13,15 @@ namespace Yungching.Rehouse.Web.Controllers.MVC
             _logger = logger;
         }
 
+        //¥¿¦b¾P°â
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Stop()
+
+        //°±°â
+        public IActionResult Discontinue()
         {
             return View();
         }

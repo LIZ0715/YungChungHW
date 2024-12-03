@@ -8,5 +8,6 @@
         public int Price { get; set; }
         public string Type { get; set; }
         public int Range { get; set; }
+        public bool Status { get; set; }
     }
 }
