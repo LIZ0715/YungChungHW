@@ -1,14 +1,15 @@
 ﻿using Yungching.Common.Dto;
 using Yungching.Repository;
-using Yungching.Repository.Models;
+using Yungching.Repository.Interface;
+using Yungching.Service.Interface;
 
 namespace Yungching.Service
 {
-    public class EstateService
+    public class EstateService : IEstateService
     {
-        private readonly EstateRepository _estateRepository;
+        private readonly IEstateRepository _estateRepository;
 
-        public EstateService(EstateRepository estateRepository)
+        public EstateService(IEstateRepository estateRepository)
         {
             _estateRepository = estateRepository;
         }
@@ -28,22 +29,26 @@ namespace Yungching.Service
             return estate;
         }
 
-        //delete estate
-        public async Task DeleteEstate(int id)
+        //update estate status
+        public async Task ChangeDataStatus(int id)
         {
             await _estateRepository.ChangeDataStatus(id);
         }
 
 
         //get my estate
-        public async Task<List<GetEstate>> GetUserEstates(int UserId)
+        public async Task<EstateDto> GetUserEstates(int page, int userId, string? searchName = null)
         {
-            List<GetEstate> estates = await _estateRepository.GetUserEstates(UserId);
+            EstateDto estates = await _estateRepository.GetUserEstates(page, userId, searchName);
             return estates;
         }
 
 
-        //get all estate
+        //delete estate data
+        public async Task DeleteData(int id)
+        {
+            await _estateRepository.DeleteData(id);
+        }
 
 
 

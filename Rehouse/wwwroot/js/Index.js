@@ -12,7 +12,11 @@
                 range: 0,
                 status:true
             },
-            rows: {}
+            rows: {},
+            page: 1,
+            totalPages: 0,
+            currentPage: 1,
+            searchName:null
         }
     },
     mounted() {
@@ -25,7 +29,6 @@
             this.addModal.show();
         },
         openEditModal(item,index) {
-            console.log(item);
             // 轉換 type 從文字到數字
             const convertedItem = {
                 index:index,
@@ -35,7 +38,6 @@
 
             // 複製轉換後的資料到表單
             this.property = { ...convertedItem };
-            console.log(this.property);
             this.editModal.show();
         },
         closeAddModal() {
@@ -45,27 +47,32 @@
             this.editModal.hide();
         },
         validateForm() {
-            console.log(this.property)
             // 檢查所有屬性是否為空或null
             return Object.values(this.property).every(value => {
                 if (typeof value === 'string') {
                     return value.trim() !== '';
                 }
-                //if (typeof value === 'number' && value!=='index') {
-                //    return value !== null && value > 0;
-                //}
                 return value !== null;
             });
         },
-        async ChangeDataStatus(index) {
+        async changeDataStatus(index) {
             const data = this.rows[index];
             const id = data.id;
             try {
-                const response = await axios.delete(`api/estates/${id}`);
+                const response = await axios.put(`api/estates/${id}/status`);
                 await this.GetUserEstate();
                 alert('狀態修改成功');
             }
             catch (error) {
+                console.error(error);
+            }
+        },
+        async deleteData(index) {
+            const data = this.rows[index];
+            try {
+                await axios.delete(`api/estates/${data.id}/delete`);
+                this.rows.splice(index, 1);
+            } catch (error) {
                 console.error(error);
             }
         },
@@ -84,14 +91,9 @@
                     range: Number(this.property.range)
                 };
 
-                console.log('Updating data:', updateData);
-
                 const response = await axios.put(`api/estates/${id}`, updateData);
-                console.log('Update response:', response);
-
                 // 更新本地資料
                 this.rows[index] = { ...updateData };
-
                 alert('更新成功');
                 this.editModal.hide();
             }
@@ -106,8 +108,6 @@
                 return;
             }
 
-            console.log('表單資料:', this.property);
-
             //使用axios 把資料送去後端
             try {
                 const response = await axios.post('api/estates', this.property);
@@ -119,7 +119,6 @@
                     type: response.data.data.type === 1 ? "公寓" : "透天"
                 };
                 this.rows.push(convertedItem);
-                console.log(this.rows);
                 this.resetForm();
                 this.closeAddModal();
             }
@@ -129,15 +128,22 @@
             }
         },
         async GetUserEstate() {
+            // Trim前先檢查是否為空值
+            const searchName = this.searchName?.trim() || null;
             try {
-                const response = await axios.get('api/estates/my');
-                console.log(response);
-                this.rows = response.data.data;
-                console.log(this.rows)
-            }
-            catch (error) {
+                const response = await axios.get(`api/estates/my?page=${this.page}&searchName=${searchName}`);
+                this.rows = response.data.data.estateList;
+                this.totalPages = Math.ceil(response.data.data.totalCount / 5);
+                this.currentPage = this.page;
+            } catch (error) {
                 console.error(error);
-                alert('抓取失敗')
+                alert('抓取失敗');
+            }
+        },
+        changePage(page) {
+            if (page >= 1 && page <= this.totalPages) {
+                this.page = page;
+                this.GetUserEstate();
             }
         },
         resetForm() {
@@ -152,5 +158,12 @@
     },
     async created() {
         await this.GetUserEstate();
+    },
+    watch: {
+        searchName: function (newVal) {
+            if (!newVal) {
+                this.GetUserEstate();
+            }
+        }
     }
 }).mount("#app");

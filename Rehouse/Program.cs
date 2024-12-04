@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using Repository;
-using Yungching.Common;
 using Yungching.Repository;
 using Yungching.Repository.Interface;
 using Yungching.Repository.Models;
 using Yungching.Service;
+using Yungching.Service.Interface;
 
 // 明確載入 NLog 設定
 var nlogConfigPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nlog.config");
@@ -26,8 +26,8 @@ try
     builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
     builder.Services.AddScoped<ApiLoggingFilterAttribute>();
     builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-    builder.Services.AddScoped<EstateService>();
-    builder.Services.AddScoped<EstateRepository>();
+    builder.Services.AddScoped<IEstateService,EstateService>();
+    builder.Services.AddScoped<IEstateRepository,EstateRepository>();
 
 
     //1.取得組態中資料庫連線設定

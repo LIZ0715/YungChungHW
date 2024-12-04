@@ -6,9 +6,9 @@
         </button>
     </header>
 
-    <div class="search-bar">
-        <input type="text" placeholder="搜尋物件...">
-        <i class="icon-search"></i>
+    <div class="search-bar d-flex">
+        <input type="text" placeholder="搜尋物件名稱關鍵字..." v-model="searchName">
+        <button type="submit" class="btn btn-dark" v-on:click="GetUserEstate()">Search</button>
     </div>
     <div class="table-container">
         <table>
@@ -31,15 +31,16 @@
                     <td>{{item.type}}</td>
                     <td>{{item.range}}</td>
                     <td>
-                        <span class="badge badge-pill badge-danger" v-if="!item.status">停售中</span>
-                        <span class="badge badge-pill badge-success" v-if="item.status">銷售中</span>
+                        <span class="badge text-bg-danger rounded-pill" v-if="!item.status">停售中</span>
+                        <span class="badge text-bg-success rounded-pill" v-if="item.status">銷售中</span>
                     </td>
                     <td class="actions">
-                        <button class="btn-edit" v-on:click="openEditModal(item,index)">編輯</button>
-                        <button class="btn-delete" v-on:click="ChangeDataStatus(index)">
+                        <button class="btn btn-primary" v-on:click="openEditModal(item,index)">編輯</button>
+                        <button class="btn btn-primary" v-on:click="changeDataStatus(index)">
                             <span v-if="item.status">停售</span>
                             <span v-if="!item.status">銷售</span>
                         </button>
+                        <button class="btn btn-danger" v-on:click="deleteData(index)">刪除</button>
                     </td>
                 </tr>
             </tbody>
@@ -111,7 +112,8 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">新增物件</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-on:click="closeAddModal()"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" v-on:click="closeAddModal()">
+                </button>
             </div>
             <div class="modal-body">
                 <div class="form-group">

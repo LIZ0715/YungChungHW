@@ -10,4 +10,10 @@
         public int Range { get; set; }
         public bool Status { get; set; }
     }
+
+    public class EstateDto
+    {
+        public int TotalCount { get; set; }
+        public List<GetEstate> EstateList { get; set; }
+    }
 }
