@@ -67,6 +67,28 @@
                 console.error(error);
             }
         },
+        async deleteProcess(index) {
+            const result = await Swal.fire({
+                title: "確定要刪除嗎?",
+                text: "此操作無法復原!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "是",
+                cancelButtonText: "否"
+            });
+
+            if (result.isConfirmed) {
+                await this.deleteData(index);
+                await Swal.fire({
+                    title: "已刪除!",
+                    text: "資料已成功刪除",
+                    icon: "success"
+                });
+                await this.GetUserEstate();
+            }
+        },
         async deleteData(index) {
             const data = this.rows[index];
             try {
@@ -120,6 +142,7 @@
                 };
                 this.rows.push(convertedItem);
                 this.resetForm();
+                await this.GetUserEstate();
                 this.closeAddModal();
             }
             catch (error) {
