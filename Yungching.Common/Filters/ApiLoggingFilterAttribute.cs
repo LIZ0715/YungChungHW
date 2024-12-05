@@ -64,12 +64,12 @@ namespace Biomedica.NGS.Infrastructure.Filters
             return $"IP Address: {ipAddress} | thread ID: {threadId} | {logType}: {controllerName} - {actionName} | Parameters: {actionArguments}";
         }
 
-        private bool ShouldSanitize(string controllerName, string actionName)
-        {
-            // 這裡可以擴展至從配置文件中讀取需要脫敏的控制器和操作名稱
-            return controllerName.Equals("Login", StringComparison.OrdinalIgnoreCase) &&
-                   actionName.Equals("Post", StringComparison.OrdinalIgnoreCase);
-        }
+        //private bool ShouldSanitize(string controllerName, string actionName)
+        //{
+        //    // 這裡可以擴展至從配置文件中讀取需要脫敏的控制器和操作名稱
+        //    return controllerName.Equals("Login", StringComparison.OrdinalIgnoreCase) &&
+        //           actionName.Equals("Post", StringComparison.OrdinalIgnoreCase);
+        //}
 
         private string GetClientIp(Microsoft.AspNetCore.Http.HttpRequest request)
         {

@@ -73,7 +73,7 @@ namespace Yungching.Rehouse.Web.Controllers.API
 
         //修改房產status
         // update /api/estates/{id}
-        [HttpPut("{id}/status")]
+        [HttpPatch("{id}/status")]
         public async Task<IActionResult> ChangeDataStatus(int id)
         {
             try

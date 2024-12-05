@@ -59,7 +59,7 @@
             const data = this.rows[index];
             const id = data.id;
             try {
-                const response = await axios.put(`api/estates/${id}/status`);
+                const response = await axios.patch(`api/estates/${id}/status`);
                 await this.GetUserEstate();
                 alert('狀態修改成功');
             }
